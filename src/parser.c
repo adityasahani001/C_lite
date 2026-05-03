@@ -29,9 +29,14 @@ int F() {
 int T() {
     int value = F();
 
-    while (input[pos] == '*') {
+    while (input[pos] == '*' || input[pos] == '/') {
+        char op = input[pos];
         pos++;
-        value = value * F();
+        int right = F();
+        if (op == '*')
+            value = value * right;
+        else if (right != 0)
+            value = value / right;
     }
 
     return value;
@@ -40,9 +45,14 @@ int T() {
 int E() {
     int value = T();
 
-    while (input[pos] == '+') {
+    while (input[pos] == '+' || input[pos] == '-') {
+        char op = input[pos];
         pos++;
-        value = value + T();
+        int right = T();
+        if (op == '+')
+            value = value + right;
+        else
+            value = value - right;
     }
 
     return value;

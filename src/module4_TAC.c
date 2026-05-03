@@ -36,12 +36,13 @@ char* F() {
 char* T() {
     char* left = F();
 
-    while (input[pos] == '*') {
+    while (input[pos] == '*' || input[pos] == '/') {
+        char op = input[pos];
         pos++;
         char* right = F();
 
         char* temp = newTemp();
-        printf("%s = %s * %s\n", temp, left, right);
+        printf("%s = %s %c %s\n", temp, left, op, right);
         left = temp;
     }
 
@@ -51,12 +52,13 @@ char* T() {
 char* E() {
     char* left = T();
 
-    while (input[pos] == '+') {
+    while (input[pos] == '+' || input[pos] == '-') {
+        char op = input[pos];
         pos++;
         char* right = T();
 
         char* temp = newTemp();
-        printf("%s = %s + %s\n", temp, left, right);
+        printf("%s = %s %c %s\n", temp, left, op, right);
         left = temp;
     }
 

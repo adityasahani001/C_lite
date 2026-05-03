@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -8,57 +9,71 @@ char result[MAX][10];
 int count = 0;
 
 int findExpression(char *e) {
-    for (int i = 0; i < count; i++) {
-        if (strcmp(expr[i], e) == 0)
-            return i;
-    }
-    return -1;
+  for (int i = 0; i < count; i++) {
+    if (strcmp(expr[i], e) == 0)
+      return i;
+  }
+  return -1;
 }
 int main() {
-    int n;
-    char line[100];
-    char left[10], op1[10], op[5], op2[10];
+  int n, i, j, k, index, outCount = 0;
+  char line[100];
+  char left[10], temp_expr[50], clean_left[20], expression[50];
+  char output[MAX][50];
+  char *p;
 
-    printf("Enter number of TAC lines: ");
-    scanf("%d", &n);
-    getchar();
+  printf("Enter number of TAC lines: ");
+  scanf("%d", &n);
+  getchar();
 
-    printf("\nEnter TAC lines:\n");
+  printf("\nEnter TAC lines:\n");
 
-    char output[MAX][50];
-    int outCount = 0;
+  for (i = 0; i < n; i++) {
 
-    for (int i = 0; i < n; i++) {
+    fgets(line, sizeof(line), stdin);
 
-        fgets(line, sizeof(line), stdin);
-
-        if (strlen(line) <= 1) {
-            i--;
-            continue;
-        }
-
-        sscanf(line, "%s = %s %s %s", left, op1, op, op2);
-
-        char expression[50];
-        sprintf(expression, "%s %s %s", op1, op, op2);
-
-        int index = findExpression(expression);
-
-        if (index != -1) {
-            sprintf(output[outCount++], "%s = %s", left, result[index]);
-        } else {
-            strcpy(expr[count], expression);
-            strcpy(result[count], left);
-            sprintf(output[outCount++], "%s = %s", left, expression);
-            count++;
-        }
+    if (strlen(line) <= 1) {
+      i--;
+      continue;
     }
 
-    printf("\nOutput:\n");
+    if (sscanf(line, "%[^=]=%[^\n]", left, temp_expr) == 2) {
+      p = left + strlen(left) - 1;
+      while (p >= left && isspace((unsigned char)*p))
+        *p-- = '\0';
 
-    for (int i = 0; i < outCount; i++) {
-        printf("%s\n", output[i]);
+      p = left;
+      while (*p && isspace((unsigned char)*p))
+        p++;
+
+      strcpy(clean_left, p);
+
+      j = 0;
+      for (k = 0; temp_expr[k] != '\0'; k++) {
+        if (!isspace((unsigned char)temp_expr[k])) {
+          expression[j++] = temp_expr[k];
+        }
+      }
+      expression[j] = '\0';
+
+      index = findExpression(expression);
+
+      if (index != -1) {
+        sprintf(output[outCount++], "%s = %s", clean_left, result[index]);
+      } else {
+        strcpy(expr[count], expression);
+        strcpy(result[count], clean_left);
+        sprintf(output[outCount++], "%s = %s", clean_left, expression);
+        count++;
+      }
     }
+  }
 
-    return 0;
+  printf("\nOutput:\n");
+
+  for (i = 0; i < outCount; i++) {
+    printf("%s\n", output[i]);
+  }
+
+  return 0;
 }
