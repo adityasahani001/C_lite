@@ -1,7 +1,7 @@
 # 🚀 C-LITE Compiler
 
 <div align="center">
-  <a href="https://huggingface.co/adityasahani001" target="_blank">
+  <a href="https://huggingface.co/spaces/adityasahani001/c-lite-compiler" target="_blank">
     <img src="https://img.shields.io/badge/✨_Try_Live_Demo-Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Live Demo" />
   </a>
   <br><br>
@@ -101,7 +101,7 @@ To run the interactive UI on your local machine, ensure you have the following i
 ## ☁️ Hugging Face Deployment
 
 🚀 **This project is officially live!** You can try the interactive compiler UI right now without installing anything by visiting my Hugging Face Space:  
-👉 **[Live C-LITE Compiler Demo](https://huggingface.co/adityasahani001)**
+👉 **[Live C-LITE Compiler Demo](https://huggingface.co/spaces/adityasahani001/c-lite-compiler)**
 
 If you want to deploy your own customized version, follow these steps: 
 
