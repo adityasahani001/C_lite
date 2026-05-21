@@ -67,7 +67,16 @@ char* E() {
 
 int main() {
     printf("Enter expression: ");
-    scanf("%s", input);
+    if (fgets(input, sizeof(input), stdin) != NULL) {
+        int i = 0, j = 0;
+        while (input[i]) {
+            if (!isspace((unsigned char)input[i])) {
+                input[j++] = input[i];
+            }
+            i++;
+        }
+        input[j] = '\0';
+    }
 
     printf("\nThree Address Code:\n");
     E();

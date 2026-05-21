@@ -30,7 +30,9 @@ int main() {
 
   for (i = 0; i < n; i++) {
 
-    fgets(line, sizeof(line), stdin);
+    if (fgets(line, sizeof(line), stdin) == NULL) {
+      break;
+    }
 
     if (strlen(line) <= 1) {
       i--;

@@ -48,14 +48,20 @@ def run_parser(expression):
     return run_executable("parser", expression)
 
 def run_tac(expression):
-    return run_executable("module4_TAC", expression)
+    out = run_executable("module4_TAC", expression)
+    if "Three Address Code:\n" in out:
+        out = out.split("Three Address Code:\n")[-1].strip()
+    return out
 
 def run_optimizer(tac_code):
     lines = tac_code.strip().split('\n')
-    lines = [line for line in lines if line.strip()]
+    lines = [line.strip() for line in lines if '=' in line]
     num_lines = len(lines)
     input_text = f"{num_lines}\n" + "\n".join(lines) + "\n"
-    return run_executable("module5_optimizer", input_text)
+    out = run_executable("module5_optimizer", input_text)
+    if "Output:\n" in out:
+        out = out.split("Output:\n")[-1].strip()
+    return out
 
 # Compile before starting Gradio
 compile_c_files()
